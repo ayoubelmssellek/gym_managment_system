@@ -5,6 +5,10 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Members from './components/Members/Members';
 import CheckIn from './components/CheckIn/CheckIn';
 import { notifications } from './data/mockData';
+import CoachCard from './components/coaches';
+import Coaches from './components/maincoaches';
+import Classes from './components/WorkoutPlans';
+import Payments from './components/payments';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -22,11 +26,11 @@ function App() {
       case 'subscriptions':
         return <div className="p-8 text-center text-gray-500">صفحة الاشتراكات قيد التطوير</div>;
       case 'coaches':
-        return <div className="p-8 text-center text-gray-500">صفحة المدربين قيد التطوير</div>;
+        return <Coaches />;
       case 'classes':
-        return <div className="p-8 text-center text-gray-500">صفحة الحصص قيد التطوير</div>;
+        return <Classes/>;
       case 'payments':
-        return <div className="p-8 text-center text-gray-500">صفحة المدفوعات قيد التطوير</div>;
+        return <Payments/>;
       case 'reports':
         return <div className="p-8 text-center text-gray-500">صفحة التقارير قيد التطوير</div>;
       case 'notifications':

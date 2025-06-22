@@ -144,8 +144,8 @@ export const workoutPlans = [
 export const classes = [
   {
     id: '1',
-    name: 'كلاس الزومبا',
-    description: 'حصة رقص زومبا للسيدات',
+    name: 'Intense Cardio Session',
+    description: 'A high-intensity cardio workout designed to boost stamina and burn fat.',
     coachId: '2',
     maxCapacity: 20,
     duration: 60,
@@ -158,8 +158,8 @@ export const classes = [
   },
   {
     id: '2',
-    name: 'كلاس القوة الوظيفية',
-    description: 'تمارين القوة الوظيفية للجميع',
+    name: 'Strength Building Class',
+    description: 'A powerful training session focused on building muscle and improving physical strength. Designed for men.',
     coachId: '1',
     maxCapacity: 15,
     duration: 45,
@@ -171,6 +171,7 @@ export const classes = [
     ]
   }
 ];
+
 
 export const checkIns = [
   {
