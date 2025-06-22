@@ -9,6 +9,7 @@ import CoachCard from './components/coaches';
 import Coaches from './components/maincoaches';
 import Classes from './components/WorkoutPlans';
 import Payments from './components/payments';
+import Subscriptions from './components/Subscriptions';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -24,7 +25,7 @@ function App() {
       case 'checkin':
         return <CheckIn />;
       case 'subscriptions':
-        return <div className="p-8 text-center text-gray-500">صفحة الاشتراكات قيد التطوير</div>;
+        return <Subscriptions/>;
       case 'coaches':
         return <Coaches />;
       case 'classes':
