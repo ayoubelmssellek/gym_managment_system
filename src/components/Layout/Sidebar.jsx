@@ -16,7 +16,6 @@ const menuItems = [
   { id: 'dashboard', label: 'لوحة التحكم', icon: Home },
   { id: 'members', label: 'الأعضاء', icon: Users },
   { id: 'subscriptions', label: 'الاشتراكات', icon: CreditCard },
-  { id: 'checkin', label: 'تسجيل الحضور', icon: UserCheck },
   { id: 'coaches', label: 'المدربين', icon: Dumbbell },
   { id: 'classes', label: 'الحصص', icon: Calendar },
   { id: 'payments', label: 'المدفوعات', icon: Receipt },
