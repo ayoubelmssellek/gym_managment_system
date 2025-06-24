@@ -14,9 +14,9 @@ import DevelopementPage from './components/DevelopementPage';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import CreateMember from './components/Members/CreateMember';
-import EditMember from './components/Members/EditMember';
 import CreateCoach from './components/Coaches/CreateCoach';
+import EditMember from './components/Members/EditMember';
+import CreateMember from './components/Members/createMember';
 import EditCoach from './components/Coaches/EditCoach';
 
 function App() {
