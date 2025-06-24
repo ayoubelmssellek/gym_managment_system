@@ -4,7 +4,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Members from './components/Members/Members';
 import CheckIn from './components/CheckIn/CheckIn';
 import { notifications } from './data/mockData';
-import Coaches from './components/Coaches/coaches';
+import Coaches from './components/Coaches/Coaches'
 import Classes from './components/WorkoutPlans';
 import Payments from './components/payments';
 import Subscriptions from './components/Subscriptions';
@@ -16,7 +16,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import CreateCoach from './components/Coaches/CreateCoach';
 import EditMember from './components/Members/EditMember';
-import CreateMember from './components/Members/createMember';
+import CreateMember from './components/Members/CreateMember';
 import EditCoach from './components/Coaches/EditCoach';
 
 function App() {
