@@ -79,11 +79,7 @@ export default function CoachCard({ coach, onEdit, onDelete }) {
             <div className="flex gap-6">
               <div>
                 <p className="text-sm text-gray-500">الراتب الأساسي</p>
-                <p className="text-gray-700">{coach.salary.toLocaleString()} ر.س</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">نسبة العمولة</p>
-                <p className="text-gray-700">{coach.commissionRate}%</p>
+                <p className="text-gray-700">{coach.salary.toLocaleString()} درهم</p>
               </div>
             </div>
           </div>

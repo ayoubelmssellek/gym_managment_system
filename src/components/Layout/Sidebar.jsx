@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Users, 
   CreditCard, 
@@ -13,18 +13,21 @@ import {
 } from 'lucide-react';
 
 const menuItems = [
-  { id: 'dashboard', label: 'لوحة التحكم', icon: Home },
-  { id: 'members', label: 'الأعضاء', icon: Users },
-  { id: 'subscriptions', label: 'الاشتراكات', icon: CreditCard },
-  { id: 'coaches', label: 'المدربين', icon: Dumbbell },
-  { id: 'classes', label: 'الحصص', icon: Calendar },
-  { id: 'payments', label: 'المدفوعات', icon: Receipt },
-  { id: 'reports', label: 'التقارير', icon: BarChart3 },
-  { id: 'notifications', label: 'التنبيهات', icon: Bell },
-  { id: 'settings', label: 'الإعدادات', icon: Settings },
+  { id: 'dashboard', label: 'لوحة التحكم', icon: Home , path:"/"},
+  { id: 'members', label: 'الأعضاء', icon: Users,path:"/members" },
+  { id: 'subscriptions', label: 'الاشتراكات', icon: CreditCard,path:"/subscriptions" },
+  { id: 'coaches', label: 'المدربين', icon: Dumbbell,path:"/coaches" },
+  { id: 'classes', label: 'الحصص', icon: Calendar ,path:"/classes"},
+  { id: 'payments', label: 'المدفوعات', icon: Receipt ,path:"/payement"},
+  { id: 'reports', label: 'التقارير', icon: BarChart3,path:"/reports" },
+  { id: 'notifications', label: 'التنبيهات', icon: Bell,path:"/notifications" },
+  { id: 'settings', label: 'الإعدادات', icon: Settings,path:"/settings" },
 ];
 
-export default function Sidebar({ activeTab, onTabChange }) {
+export default function Sidebar() {
+  const path = useLocation().pathname;
+  console.log(path);
+  
   return (
     <aside className="w-64 bg-white shadow-lg border-l border-gray-200 min-h-screen">
       <div className="p-6 border-b border-gray-200">
@@ -43,12 +46,11 @@ export default function Sidebar({ activeTab, onTabChange }) {
         <ul className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            
+            const isActive = item.path === path
             return (
               <li key={item.id}>
-                <button
-                  onClick={() => onTabChange(item.id)}
+                <Link
+                  to={item.path}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-right transition-all duration-200 ${
                     isActive
                       ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-600'
@@ -57,7 +59,7 @@ export default function Sidebar({ activeTab, onTabChange }) {
                 >
                   <Icon size={20} className={isActive ? 'text-blue-600' : 'text-gray-500'} />
                   <span className="font-medium">{item.label}</span>
-                </button>
+                </Link>
               </li>
             );
           })}

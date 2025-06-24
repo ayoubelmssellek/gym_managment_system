@@ -14,7 +14,7 @@ export default function MemberCard({ member, subscription, onEdit, onDelete }) {
     monthly: 'شهري',
     quarterly: 'ربع سنوي',
     yearly: 'سنوي',
-    daily: 'يومي'
+    semiannual: 'نصف سنوي'
   };
 
   return (
@@ -63,12 +63,7 @@ export default function MemberCard({ member, subscription, onEdit, onDelete }) {
             <span className="text-sm font-medium text-gray-700">المبلغ</span>
             <span className="text-sm text-gray-900">{subscription.price} dh</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-700">ينتهي في</span>
-            <span className="text-sm text-gray-900">
-              {new Date(subscription.endDate).toLocaleDateString('ar-EG')}
-            </span>
-          </div>
+          
         </div>
       )}
 

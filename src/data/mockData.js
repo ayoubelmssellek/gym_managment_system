@@ -53,6 +53,32 @@ export const members = [
     }
   }
 ];
+export const subscriptionsPlans = [
+  {
+    id: '1',
+    type: SubscriptionType.MONTHLY,
+    price: 300,
+    isActive: true,
+  },
+  {
+    id: '2',
+    type: SubscriptionType.QUARTERLY,
+    price: 800,
+    isActive: true,
+  },
+  {
+    id: '3',
+    type: SubscriptionType.SEMIANNUAL,
+    price: 1600,
+    isActive: true,
+  },
+  {
+    id: '3',
+    type: SubscriptionType.YEARLY,
+    price: 3100,
+    isActive: true,
+  }
+];
 
 export const subscriptions = [
   {

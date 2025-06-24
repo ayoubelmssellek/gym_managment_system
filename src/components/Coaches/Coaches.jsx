@@ -1,39 +1,42 @@
 import React, { useState } from 'react';
 import { Search, Plus, Filter } from 'lucide-react';
-import CoachCard from './coaches';
-import { coaches } from '../data/mockData';
+import CoachCard from './CoachesCards';
+import { useSelector } from 'react-redux';
+import DeleteCoachModal from './DeleteCoachModal';
+import { useNavigate } from 'react-router-dom';
 
 export default function Coaches() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSpecialty, setFilterSpecialty] = useState('all');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedCoach, setSelectedCoach] = useState(null);
+  const coaches = useSelector(state => state.coaches.coaches);
+  const navigate = useNavigate();
 
   // Filter coaches based on search and specialty
   const filteredCoaches = coaches.filter(coach => {
     const matchesSearch = coach.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          coach.phone.includes(searchTerm) ||
                          coach.email.toLowerCase().includes(searchTerm.toLowerCase());
-    
     if (!matchesSearch) return false;
-    
     if (filterSpecialty === 'all') return true;
-    
-    return coach.specialty.includes(filterSpecialty);
+    return coach.speciality && coach.speciality.includes(filterSpecialty);
   });
 
   // Handle edit coach
   const handleEditCoach = (coach) => {
-    console.log('Edit coach:', coach);
-    // Implement edit functionality here
+    navigate(`/editCoach/${coach.id}`);
   };
 
   // Handle delete coach
   const handleDeleteCoach = (coachId) => {
-    console.log('Delete coach:', coachId);
-    // Implement delete functionality here
+    const coach = coaches.find(c => c.id === coachId);
+    setSelectedCoach(coach);
+    setShowDeleteModal(true);
   };
 
   // Get unique specialties for filter dropdown
-  const specialties = ['all', ...new Set(coaches.map(coach => coach.specialty))];
+  const specialties = ['all', ...new Set(coaches.map(coach => coach.speciality))];
 
   return (
     <div className="space-y-6">
@@ -45,7 +48,7 @@ export default function Coaches() {
         </div>
         <button 
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-          onClick={() => console.log('Add new coach')}
+          onClick={() => navigate('/addCoach')}
         >
           <Plus size={20} />
           إضافة مدرب جديد
@@ -66,7 +69,6 @@ export default function Coaches() {
               className="w-full pr-10 pl-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-          
           {/* Specialty Filter */}
           <div className="flex items-center gap-2">
             <Filter size={20} className="text-gray-400" />
@@ -103,6 +105,8 @@ export default function Coaches() {
           <p className="text-gray-500 text-lg">لا توجد نتائج مطابقة للبحث</p>
         </div>
       )}
+
+      <DeleteCoachModal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} coach={selectedCoach} />
     </div>
   );
 }

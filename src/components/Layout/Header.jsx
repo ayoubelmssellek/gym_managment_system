@@ -1,12 +1,45 @@
-import React from 'react';
+
 import { Bell, User, LogOut, Settings } from 'lucide-react';
 
-export default function Header({ title, notificationCount = 0 }) {
+
+export default function Header({ notificationCount = 0 }) {
+   const activeTab = window.location.pathname;
+   
+
+
+  const getPageTitle = () => {
+    switch (activeTab) {
+      case '/':
+        return 'لوحة التحكم';
+      case '/members':
+        return 'إدارة الأعضاء';
+      case '/checkin':
+        return 'تسجيل الحضور';
+      case '/subscriptions':
+        return 'إدارة الاشتراكات';
+      case '/coaches':
+        return 'إدارة المدربين';
+      case '/classes':
+        return 'إدارة الحصص';
+      case '/payments':
+        return 'إدارة المدفوعات';
+      case '/reports':
+        return 'التقارير والإحصائيات';
+      case '/notifications':
+        return 'التنبيهات';
+      case '/settings':
+        return 'الإعدادات';
+      case '/addMember':
+        return 'إضافة عضو';
+      default:
+        return 'لوحة التحكم';
+    }
+  };
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{getPageTitle()}</h1>
           <p className="text-sm text-gray-500 mt-1">
             {new Date().toLocaleDateString('ar-EG', {
               weekday: 'long',

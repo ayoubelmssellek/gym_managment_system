@@ -1,37 +1,50 @@
 import React, { useState } from 'react';
 import { Search, Plus, Filter } from 'lucide-react';
 import MemberCard from './MemberCard';
-import { members, subscriptions } from '../../data/mockData';
+import {  subscriptionsPlans } from '../../data/mockData';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import DeleteMemberModal from './DeleteMemberModal';
 
-export default function Members() {
+
+export default function Members({onTabChange}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
+  const members = useSelector(state => state.members.members);
+  
+  const navigate = useNavigate();
 
   const filteredMembers = members.filter(member => {
     const matchesSearch = member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          member.phone.includes(searchTerm);
     
-    if (!matchesSearch) return false;
+
     
     if (filterStatus === 'all') return true;
     
-    const subscription = subscriptions.find(s => s.memberId === member.id);
-    if (filterStatus === 'active') {
-      return subscription?.isActive;
-    } else {
-      return !subscription?.isActive;
-    }
+    const subscriptionPlanSearch = member.subscriptionPlanId == filterStatus;
+    
+
+    if (!subscriptionPlanSearch) return false
+    if (!matchesSearch) return false;
+
+    return subscriptionPlanSearch || matchesSearch
+      
+    
   });
 
   const handleEditMember = (member) => {
-    // Implement edit functionality
-    console.log('Edit member:', member);
+    navigate(`/editMember/${member.id}`);
   };
 
   const handleDeleteMember = (memberId) => {
-    // Implement delete functionality
-    console.log('Delete member:', memberId);
+    const member = members.find(m => m.id === memberId);
+    setSelectedMember(member);
+    setShowDeleteModal(true);
   };
+
 
   return (
     <div className="space-y-6">
@@ -41,7 +54,10 @@ export default function Members() {
           <h2 className="text-2xl font-bold text-gray-900">إدارة الأعضاء</h2>
           <p className="text-gray-600 mt-1">إدارة معلومات الأعضاء واشتراكاتهم</p>
         </div>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+          onClick={() => navigate('/addMember')}
+        >
           <Plus size={20} />
           إضافة عضو جديد
         </button>
@@ -68,9 +84,11 @@ export default function Members() {
               onChange={(e) => setFilterStatus(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="all">جميع الأعضاء</option>
-              <option value="active">الأعضاء النشطين</option>
-              <option value="expired">الاشتراكات المنتهية</option>
+              <option value="all"> جميع الإشتراكات</option>
+              <option value="4"> سنوي </option>
+              <option value="3"> نصف سنوي</option>
+              <option value="2"> ربع سنوي</option>
+              <option value="1">شهري </option>
             </select>
           </div>
         </div>
@@ -82,7 +100,7 @@ export default function Members() {
           <MemberCard
             key={member.id}
             member={member}
-            subscription={subscriptions.find(s => s.memberId === member.id)}
+            subscription={subscriptionsPlans.find(s => s.id == member.subscriptionPlanId)}
             onEdit={handleEditMember}
             onDelete={handleDeleteMember}
           />
@@ -94,6 +112,8 @@ export default function Members() {
           <p className="text-gray-500 text-lg">لا توجد نتائج مطابقة للبحث</p>
         </div>
       )}
+
+      <DeleteMemberModal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} member={selectedMember} />
     </div>
   );
 }

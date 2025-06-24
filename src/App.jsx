@@ -1,87 +1,66 @@
-import React, { useState } from 'react';
 import Header from './components/Layout/Header';
 import Sidebar from './components/Layout/Sidebar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Members from './components/Members/Members';
 import CheckIn from './components/CheckIn/CheckIn';
 import { notifications } from './data/mockData';
-import CoachCard from './components/coaches';
-import Coaches from './components/maincoaches';
+import Coaches from './components/Coaches/coaches';
 import Classes from './components/WorkoutPlans';
 import Payments from './components/payments';
 import Subscriptions from './components/Subscriptions';
+import { BrowserRouter, Routes,Route } from 'react-router-dom';
+
+import DevelopementPage from './components/DevelopementPage';
+
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import CreateMember from './components/Members/CreateMember';
+import EditMember from './components/Members/EditMember';
+import CreateCoach from './components/Coaches/CreateCoach';
+import EditCoach from './components/Coaches/EditCoach';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+ 
   
   const unreadNotifications = notifications.filter(n => !n.isRead).length;
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <Dashboard />;
-      case 'members':
-        return <Members />;
-      case 'checkin':
-        return <CheckIn />;
-      case 'subscriptions':
-        return <Subscriptions/>;
-      case 'coaches':
-        return <Coaches />;
-      case 'classes':
-        return <Classes/>;
-      case 'payments':
-        return <Payments/>;
-      case 'reports':
-        return <div className="p-8 text-center text-gray-500">صفحة التقارير قيد التطوير</div>;
-      case 'notifications':
-        return <div className="p-8 text-center text-gray-500">صفحة التنبيهات قيد التطوير</div>;
-      case 'settings':
-        return <div className="p-8 text-center text-gray-500">صفحة الإعدادات قيد التطوير</div>;
-      default:
-        return <Dashboard />;
-    }
-  };
-
-  const getPageTitle = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return 'لوحة التحكم';
-      case 'members':
-        return 'إدارة الأعضاء';
-      case 'checkin':
-        return 'تسجيل الحضور';
-      case 'subscriptions':
-        return 'إدارة الاشتراكات';
-      case 'coaches':
-        return 'إدارة المدربين';
-      case 'classes':
-        return 'إدارة الحصص';
-      case 'payments':
-        return 'إدارة المدفوعات';
-      case 'reports':
-        return 'التقارير والإحصائيات';
-      case 'notifications':
-        return 'التنبيهات';
-      case 'settings':
-        return 'الإعدادات';
-      default:
-        return 'لوحة التحكم';
-    }
-  };
 
   return (
+    <Provider store={store}>
+        <BrowserRouter>
     <div className="min-h-screen bg-gray-50 flex" dir="rtl">
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+      <Sidebar  />
       
       <div className="flex-1 flex flex-col">
-        <Header title={getPageTitle()} notificationCount={unreadNotifications} />
+        <Header notificationCount={unreadNotifications} />
         
         <main className="flex-1 p-6">
-          {renderContent()}
+          <Routes>
+              <Route path='/' element={<Dashboard/>}/>
+              <Route path='/members' element={<Members/>}/>
+              <Route path='/addMember' element={<CreateMember/>}/>
+              <Route path='/editMember/:id' element={<EditMember/>}/>
+              <Route path='/addCoach' element={<CreateCoach/>}/>
+              <Route path='/editCoach/:id' element={<EditCoach/>}/>
+              <Route path='/checkin' element={<CheckIn/>}/>
+              <Route path='/subscriptions' element={<Subscriptions/>}/>
+              <Route path='/coaches' element={<Coaches/>}/>
+              <Route path='/classes' element={<Classes/>}/>
+              <Route path='/payement' element={<DevelopementPage/>}/>
+              <Route path='/reports' element={<DevelopementPage/>}/>
+              <Route path='/notifications' element={<DevelopementPage/>}/>
+              <Route path='/settings' element={<DevelopementPage/>}/>
+          </Routes>
+          
         </main>
       </div>
     </div>
+     
+    </BrowserRouter>
+
+    </Provider>
+
+    
   );
 }
 

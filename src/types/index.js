@@ -6,6 +6,7 @@ export const MemberGender = {
 export const SubscriptionType = {
   MONTHLY: 'monthly',
   QUARTERLY: 'quarterly',
+  SEMIANNUAL: 'semiannual',
   YEARLY: 'yearly',
   DAILY: 'daily'
 };
