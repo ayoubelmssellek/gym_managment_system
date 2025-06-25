@@ -20,7 +20,7 @@ export default function Coaches() {
                          coach.email.toLowerCase().includes(searchTerm.toLowerCase());
     if (!matchesSearch) return false;
     if (filterSpecialty === 'all') return true;
-    return coach.speciality && coach.speciality.includes(filterSpecialty);
+    return coach.specialty && coach.specialty.includes(filterSpecialty);
   });
 
   // Handle edit coach
@@ -36,7 +36,7 @@ export default function Coaches() {
   };
 
   // Get unique specialties for filter dropdown
-  const specialties = ['all', ...new Set(coaches.map(coach => coach.speciality))];
+  const specialties = ['all', ...new Set(coaches.map(coach => coach.specialty))];
 
   return (
     <div className="space-y-6">
@@ -77,6 +77,7 @@ export default function Coaches() {
               onChange={(e) => setFilterSpecialty(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
+            
               {specialties.map(specialty => (
                 <option key={specialty} value={specialty}>
                   {specialty === 'all' ? 'جميع التخصصات' : specialty}
